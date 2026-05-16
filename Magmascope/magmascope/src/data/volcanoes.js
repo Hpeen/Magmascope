@@ -4751,6 +4751,7 @@
     status: 'Dormant',
     notable: true,
     wikiTitle: 'Wudalianchi',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Panorama_of_Laohei_Volcano_Crater%2C_Aug_2019.jpg',
     description: [
       "Wudalianchi — 'Five Connected Lakes' — is one of China's best-preserved young volcanic landscapes. In 1720–21 a fissure eruption produced lava flows that dammed a local river, creating a chain of five crater lakes still visible today. The lava fields are so fresh and craggy they resemble a moonscape.",
       "The site is a UNESCO Global Geopark and the only place in China where a historical eruption created new lakes documented by Chinese court records. The mineral-rich spring water that emerges through the volcanic rock is commercially bottled as one of China's most popular mineral water brands."
@@ -4789,6 +4790,7 @@
     status: 'Active',
     notable: true,
     wikiTitle: 'Kunlun_volcanic_group',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Aqikekule_2021-07-10_Sentinel-2_L2A_True_color.jpg',
     description: [
       "The Kunlun Volcanic Group sits at elevations of 5,000–5,800 meters on the Tibetan Plateau — making it one of the highest-altitude active volcanic systems on Earth. A poorly-documented eruption in 1951 reportedly produced lava flows and ash clouds that were observed by local Tibetan nomads and later reported to Chinese geological surveys.",
       "The volcanoes sit atop the strike-slip fault system that accommodates India's collision with Eurasia, producing the unusual high-altitude magmatism. Their remoteness and extreme elevation have kept them among the least-studied active volcanoes on the planet."
