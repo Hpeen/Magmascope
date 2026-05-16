@@ -438,3 +438,30 @@
   color: #ff5040;
   filter: drop-shadow(0 0 4px rgba(255,60,30,0.7));
 }
+
+@media (max-width: 720px) {
+  .lp-panel {
+    width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  .lp-x { top: 10px; right: 10px; width: 26px; height: 26px; font-size: 15px; }
+  .lp-arrow { display: none; }
+  .lp-tabs { padding: 0 8px; }
+  .lp-tab { padding: 12px 4px; }
+  .lp-tab-active { padding: 14px 6px 12px; }
+  .lp-tab-label { font-size: 9px; letter-spacing: 0.16em; }
+  .lp-tab-active .lp-tab-label { font-size: 10px; }
+  .lp-tab-sub { font-size: 8px; }
+  .lp-body { padding: 18px 16px 28px; }
+  .lp-lead { font-size: 13px; padding-left: 12px; }
+  .lp-types { grid-template-columns: 1fr; }
+  .lp-stages { grid-template-columns: repeat(2, 1fr); }
+  .lp-ebar-wrap { gap: 6px; }
+  .lp-statrow { grid-template-columns: repeat(3, 1fr); }
+  .lp-stat { padding: 10px 8px; }
+  .lp-stat-val { font-size: 15px; }
+  .lp-step { gap: 12px; }
+  .lp-step p { font-size: 12px; }
+  .learn-btn { padding: 5px 10px; font-size: 9px; letter-spacing: 0.16em; }
+}

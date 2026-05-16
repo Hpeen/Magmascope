@@ -111,3 +111,18 @@
     color: var(--text-secondary);
     background: rgba(255,255,255,0.02);
   }
+
+  @media (max-width: 720px) {
+    .header {
+      padding: 10px 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .brand { font-size: 9px; letter-spacing: 0.12em; }
+    .brand-row { gap: 8px; }
+    .brand-row span { display: none; }
+    .title-eyebrow { font-size: 8px; letter-spacing: 0.2em; }
+    .title-main { font-size: 13px; }
+    .stats { display: none; }
+    .footer { display: none; }
+  }

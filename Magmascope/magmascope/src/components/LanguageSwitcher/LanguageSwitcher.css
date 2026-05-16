@@ -32,3 +32,16 @@
     box-shadow: 0 0 16px rgba(255, 87, 34, 0.2),
                 inset 0 0 0 1px rgba(255, 87, 34, 0.4);
   }
+
+  @media (max-width: 720px) {
+    .lang-switcher {
+      top: 8px;
+      right: 10px;
+      padding: 2px;
+    }
+    .lang-switcher button {
+      padding: 4px 9px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+    }
+  }

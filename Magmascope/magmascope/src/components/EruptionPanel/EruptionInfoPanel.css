@@ -516,3 +516,19 @@
   padding-left: 10px;
   border-left: 1px solid rgba(255, 255, 255, 0.06);
 }
+
+@media (max-width: 720px) {
+  .eruption-info-panel { width: 100vw; }
+  .eip-panel-header { padding: 14px 18px 14px; }
+  .eip-panel-volcano { font-size: 17px; }
+  .eip-phase-block { padding: 12px 18px 0; }
+  .eip-section { padding: 0 18px 22px; }
+  .eip-stats-grid,
+  .eip-geo-grid,
+  .eip-impact-grid { gap: 6px; }
+  .eip-stat { padding: 10px 12px; }
+  .eip-stat-value { font-size: 14px; }
+  .geo-cell { padding: 12px 12px 10px; }
+  .geo-value { font-size: 13px; }
+  .eip-disclaimer { margin: 0 18px; }
+}

@@ -335,3 +335,22 @@
   /* Hide description block when not notable */
   .info-panel:not(.is-notable) .description-block { display: none; }
 
+  @media (max-width: 720px) {
+    .info-panel { width: 100vw; }
+    .panel-inner { padding: 18px 18px 36px; }
+    .panel-hero { height: 160px; margin: -18px -18px 18px; }
+    .panel-header { padding-bottom: 16px; margin-bottom: 18px; }
+    .volcano-name { font-size: 22px; }
+    .volcano-location { font-size: 10px; }
+    .status-row { margin-top: 14px; margin-bottom: 18px; }
+    .data-cell { padding: 12px 14px; }
+    .data-value { font-size: 12px; }
+    .eruption-block { margin-bottom: 22px; padding-left: 14px; }
+    .eruption-value { font-size: 18px; }
+    .description-block {
+      margin: 20px -18px 0;
+      padding: 20px 18px 8px;
+    }
+    .description-text { font-size: 13px; line-height: 1.65; }
+  }
+
