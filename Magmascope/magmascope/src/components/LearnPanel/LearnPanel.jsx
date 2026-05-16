@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { t } from '../../data/i18n';
 import './LearnPanel.css';
@@ -185,7 +185,6 @@ export default function LearnPanel({ onClose }) {
   const [idx, setIdx] = useState(0);
   const [direction, setDirection] = useState(1);
   const bodyRef = useRef(null);
-  const wheelLock = useRef(false);
   const total = TAB_KEYS.length;
 
   const go = useCallback((next) => {
@@ -202,28 +201,13 @@ export default function LearnPanel({ onClose }) {
   const prev = useCallback(() => go((idx - 1 + total) % total), [go, idx, total]);
   const next = useCallback(() => go((idx + 1) % total),         [go, idx, total]);
 
-  function handleWheel(e) {
-    if (wheelLock.current) return;
-    const body = bodyRef.current;
-    if (!body) return;
-    const { scrollTop, scrollHeight, clientHeight } = body;
-    const atTop    = scrollTop <= 2;
-    const atBottom = scrollTop + clientHeight >= scrollHeight - 2;
-    if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
-      e.preventDefault();
-      wheelLock.current = true;
-      e.deltaY < 0 ? prev() : next();
-      setTimeout(() => { wheelLock.current = false; }, 500);
-    }
-  }
-
   const prevKey = TAB_KEYS[(idx - 1 + total) % total];
   const nextKey = TAB_KEYS[(idx + 1) % total];
   const Page = PAGES[idx];
 
   return (
     <div className="lp-backdrop" onClick={onClose}>
-      <div className="lp-panel" onClick={e => e.stopPropagation()} onWheel={handleWheel}>
+      <div className="lp-panel" onClick={e => e.stopPropagation()}>
 
         {/* Arrow bubbles — inside panel edges */}
         <button className="lp-arrow lp-arrow-l" onClick={prev} aria-label="Previous">‹</button>
