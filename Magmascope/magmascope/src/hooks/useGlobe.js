@@ -137,7 +137,7 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
     const globe = Globe()(mountRef.current)
       .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
       .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-      .backgroundImageUrl('/night-sky.png')
+      .backgroundImageUrl(`${import.meta.env.BASE_URL}night-sky.png`)
       .atmosphereColor('#ffb38a')
       .atmosphereAltitude(0.16)
       .showGraticules(false);
