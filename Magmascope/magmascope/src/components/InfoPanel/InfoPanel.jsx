@@ -8,22 +8,47 @@ import './InfoPanel.css';
 
 const imageCache = new Map();
 
-async function fetchVolcanoImage(wikiTitle) {
+async function fetchWikipediaImage(wikiTitle) {
   if (!wikiTitle) return null;
-  if (imageCache.has(wikiTitle)) return imageCache.get(wikiTitle);
   try {
     const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) return null;
     const data = await res.json();
-    const imgUrl = data.originalimage?.source || data.thumbnail?.source || null;
-    imageCache.set(wikiTitle, imgUrl);
-    return imgUrl;
+    return data.originalimage?.source || data.thumbnail?.source || null;
   } catch (err) {
-    console.warn(`[Magmascope] Could not fetch image for "${wikiTitle}":`, err);
-    imageCache.set(wikiTitle, null);
+    console.warn(`[Magmascope] Wikipedia fetch failed for "${wikiTitle}":`, err);
     return null;
   }
+}
+
+async function fetchCommonsImage(query) {
+  if (!query) return null;
+  try {
+    const q = encodeURIComponent(`${query} volcano`);
+    const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${q}&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=1600&format=json&origin=*`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const pages = data?.query?.pages;
+    if (!pages) return null;
+    const first = Object.values(pages)[0];
+    const info = first?.imageinfo?.[0];
+    return info?.thumburl || info?.url || null;
+  } catch (err) {
+    console.warn(`[Magmascope] Commons fetch failed for "${query}":`, err);
+    return null;
+  }
+}
+
+async function fetchVolcanoImage(v) {
+  if (!v) return null;
+  const key = v.id || v.wikiTitle || v.name;
+  if (imageCache.has(key)) return imageCache.get(key);
+  let imgUrl = await fetchWikipediaImage(v.wikiTitle);
+  if (!imgUrl) imgUrl = await fetchCommonsImage(v.name);
+  imageCache.set(key, imgUrl);
+  return imgUrl;
 }
 
 export default function InfoPanel() {
@@ -34,7 +59,7 @@ export default function InfoPanel() {
 
   useEffect(() => {
     const v = selectedVolcano;
-    if (!v?.imageUrl && !v?.wikiTitle) {
+    if (!v) {
       setHeroUrl(null);
       setHeroLoaded(false);
       return;
@@ -54,7 +79,7 @@ export default function InfoPanel() {
     if (v.imageUrl) {
       loadUrl(v.imageUrl);
     } else {
-      fetchVolcanoImage(v.wikiTitle).then(loadUrl);
+      fetchVolcanoImage(v).then(loadUrl);
     }
     return () => { cancelled = true; };
   }, [selectedVolcano]);

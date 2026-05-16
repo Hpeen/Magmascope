@@ -967,7 +967,7 @@ export const DESCRIPTIONS_RO = {
     "Muntele este un sit UNESCO din patrimoniul mondial și sacru în cosmologia Kikuyu ca Kirinyaga — 'locul luminozității', unde locuiește zeul creator Ngai. Gospodăriile Kikuyu erau construite tradițional cu ușile orientate spre munte, astfel încât rugăciunile să călătorească direct spre vârf."
   ],
   'fantale': [
-    "Fantale este cel mai recent activ vulcan central din Riftul Principal Etiopian, dominând peisajul la capătul nordic al Lacului Ziway. Caldera sa de 3,5 km lățime este una dintre cele mai fotogenice din Africa de Est — o depresiune cu pereți abrupți cu fumarole care încă emit aburi de pe podea.",
+    "Fentale este cel mai recent activ vulcan central din Riftul Principal Etiopian, dominând peisajul la capătul nordic al Lacului Ziway. Caldera sa de 3,5 km lățime este una dintre cele mai fotogenice din Africa de Est — o depresiune cu pereți abrupți cu fumarole care încă emit aburi de pe podea.",
     "În 1820, o erupție majoră de fisură de pe flancurile sale a produs curenți de lavă care au ajuns la Lacul Basaka, remodelând vizibil geografia locală. Sistemul hidrotermal al vulcanului încălzește solul din jurul bazei sale, iar comunitățile de păstori Oromo consideră de mult craterul de vârf ca locuința unor spirite puternice."
   ],
   'meru': [

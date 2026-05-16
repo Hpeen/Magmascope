@@ -4353,7 +4353,7 @@
     vei: 1,
     status: 'Active',
     notable: true,
-    wikiTitle: 'Kick_%27em_Jenny',
+    wikiTitle: "Kick_'em_Jenny",
     description: [
       "Kick 'em Jenny sits 8 kilometers off the northern coast of Grenada, its summit lurking 185 meters below the surface of the Caribbean Sea. It is the only known active submarine volcano in the Eastern Caribbean, and has erupted more than a dozen times since it was first recorded in 1939 when an eruption built a temporary island.",
       "Cruise ships and pleasure craft are required to maintain a 1.5-kilometer exclusion zone around the summit at all times. Scientists monitor it closely because a future flank collapse could generate a regional tsunami affecting the densely populated Lesser Antilles."
@@ -4941,7 +4941,7 @@
   },
   {
     id: 'fantale',
-    name: 'Fantale',
+    name: 'Fentale',
     country: 'Ethiopia',
     region: 'Oromia',
     lat: 8.974,
@@ -4952,9 +4952,10 @@
     vei: 4,
     status: 'Active',
     notable: true,
-    wikiTitle: 'Fantale',
+    wikiTitle: 'Fentale',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Fentale_aerial.jpg',
     description: [
-      "Fantale is the most recently active central volcano in the Main Ethiopian Rift, dominating the landscape at the northern end of Lake Ziway. Its 3.5-kilometer-wide summit caldera is one of the most photogenic in East Africa — a steep-walled depression with fumaroles still steaming from its floor.",
+      "Fentale is the most recently active central volcano in the Main Ethiopian Rift, dominating the landscape at the northern end of Lake Ziway. Its 3.5-kilometer-wide summit caldera is one of the most photogenic in East Africa — a steep-walled depression with fumaroles still steaming from its floor.",
       "In 1820, a major fissure eruption from its flanks produced lava flows that reached Lake Basaka, visibly reshaping the local geography. The volcano's hydrothermal system heats the ground around its base, and Oromo pastoralist communities have long regarded its summit crater as the home of powerful spirits."
     ]
   },
