@@ -210,8 +210,16 @@ export default function LearnPanel({ onClose }) {
       <div className="lp-panel" onClick={e => e.stopPropagation()}>
 
         {/* Arrow bubbles — inside panel edges */}
-        <button className="lp-arrow lp-arrow-l" onClick={prev} aria-label="Previous">‹</button>
-        <button className="lp-arrow lp-arrow-r" onClick={next} aria-label="Next">›</button>
+        <button className="lp-arrow lp-arrow-l" onClick={prev} aria-label="Previous">
+          <svg className="lp-arrow-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 6 L9 12 L15 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <button className="lp-arrow lp-arrow-r" onClick={next} aria-label="Next">
+          <svg className="lp-arrow-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 6 L15 12 L9 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
 
         {/* Close */}
         <button className="lp-x" onClick={onClose} aria-label="Close">×</button>
