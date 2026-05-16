@@ -183,30 +183,21 @@ const TAB_KEYS = ['formation', 'lifecycle', 'types'];
 export default function LearnPanel({ onClose }) {
   const { currentLang: lang } = useLanguage();
   const [idx, setIdx] = useState(0);
-  const [renderedIdx, setRenderedIdx] = useState(0);
-  const [fadingOut, setFadingOut] = useState(false);
+  const [direction, setDirection] = useState(1);
   const bodyRef = useRef(null);
   const wheelLock = useRef(false);
-  const pendingIdx = useRef(null);
   const total = TAB_KEYS.length;
 
   const go = useCallback((next) => {
     if (next === idx) return;
-    pendingIdx.current = next;
-    setFadingOut(true);
-  }, [idx]);
-
-  useEffect(() => {
-    if (!fadingOut) return;
-    const timer = setTimeout(() => {
-      const target = pendingIdx.current;
-      setRenderedIdx(target);
-      setIdx(target);
-      if (bodyRef.current) bodyRef.current.scrollTop = 0;
-      setFadingOut(false);
-    }, 200);
-    return () => clearTimeout(timer);
-  }, [fadingOut]);
+    const delta = next - idx;
+    const dir = delta > 0
+      ? (delta > total / 2 ? -1 : 1)
+      : (delta < -total / 2 ? 1 : -1);
+    setDirection(dir);
+    setIdx(next);
+    if (bodyRef.current) bodyRef.current.scrollTop = 0;
+  }, [idx, total]);
 
   const prev = useCallback(() => go((idx - 1 + total) % total), [go, idx, total]);
   const next = useCallback(() => go((idx + 1) % total),         [go, idx, total]);
@@ -222,13 +213,13 @@ export default function LearnPanel({ onClose }) {
       e.preventDefault();
       wheelLock.current = true;
       e.deltaY < 0 ? prev() : next();
-      setTimeout(() => { wheelLock.current = false; }, 700);
+      setTimeout(() => { wheelLock.current = false; }, 500);
     }
   }
 
   const prevKey = TAB_KEYS[(idx - 1 + total) % total];
   const nextKey = TAB_KEYS[(idx + 1) % total];
-  const Page = PAGES[renderedIdx];
+  const Page = PAGES[idx];
 
   return (
     <div className="lp-backdrop" onClick={onClose}>
@@ -242,14 +233,13 @@ export default function LearnPanel({ onClose }) {
         <button className="lp-x" onClick={onClose} aria-label="Close">×</button>
 
         {/* Tab strip */}
-        <div className="lp-tabs">
+        <div className="lp-tabs" style={{ '--lp-active-idx': idx, '--lp-total': total }}>
           <button className="lp-tab lp-tab-side" onClick={prev}>
             <span className="lp-tab-label">{t(`learn.tab.${prevKey}`, lang)}</span>
             <span className="lp-tab-sub">{t(`learn.tab.${prevKey}.sub`, lang)}</span>
           </button>
 
-          <div className="lp-tab lp-tab-active">
-            <div className="lp-tab-pip" />
+          <div className="lp-tab lp-tab-active" key={idx}>
             <span className="lp-tab-label">{t(`learn.tab.${TAB_KEYS[idx]}`, lang)}</span>
             <span className="lp-tab-sub">{t(`learn.tab.${TAB_KEYS[idx]}.sub`, lang)}</span>
           </div>
@@ -258,18 +248,30 @@ export default function LearnPanel({ onClose }) {
             <span className="lp-tab-label">{t(`learn.tab.${nextKey}`, lang)}</span>
             <span className="lp-tab-sub">{t(`learn.tab.${nextKey}.sub`, lang)}</span>
           </button>
+
+          <div className="lp-tab-underline" aria-hidden="true" />
         </div>
 
         {/* Dot progress */}
         <div className="lp-pips">
-          {TAB_KEYS.map((_, i) => (
-            <button key={i} className={`lp-pip${i === idx ? ' on' : ''}`} onClick={() => go(i)} />
+          {TAB_KEYS.map((k, i) => (
+            <button
+              key={k}
+              className={`lp-pip${i === idx ? ' on' : ''}`}
+              onClick={() => go(i)}
+              aria-label={t(`learn.tab.${k}`, lang)}
+            />
           ))}
         </div>
 
         {/* Scrollable content */}
-        <div className={`lp-body${fadingOut ? ' lp-body--out' : ''}`} ref={bodyRef}>
-          <Page lang={lang} />
+        <div className="lp-body" ref={bodyRef}>
+          <div
+            className={`lp-page lp-page--${direction > 0 ? 'in-right' : 'in-left'}`}
+            key={idx}
+          >
+            <Page lang={lang} />
+          </div>
         </div>
 
       </div>
