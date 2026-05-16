@@ -1,0 +1,113 @@
+  /* Apply the brand's monospace font globally */
+  :root {
+    --font-sans: var(--font-mono) !important;
+  }
+  body, input, button, select, textarea {
+    font-family: var(--font-mono) !important;
+  }
+
+  .header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    pointer-events: none;
+  }
+  .header > * { pointer-events: auto; }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--status-live);
+    box-shadow: 0 0 12px var(--status-live);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .title {
+    text-align: center;
+    flex: 1;
+  }
+  .title-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--magma-core);
+    margin-bottom: 4px;
+  }
+  .title-main {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+  }
+
+  /* ----- SEARCH BAR -----
+     Lives inside the centered title block. Mono caps placeholder */
+
+  .stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: capitalize;
+    color: var(--text-secondary);
+  }
+  
+  .stats > *:first-child::after {
+    content: " -";
+    margin-left: 8px;
+  }
+  .stats-value {
+    color: var(--magma-glow);
+    font-weight: 500;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 24px; left: 32px;
+    z-index: 10;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    user-select: none;
+  }
+  .footer kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    margin: 0 4px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 9px;
+    color: var(--text-secondary);
+    background: rgba(255,255,255,0.02);
+  }

@@ -1,0 +1,96 @@
+  .hud {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px; height: 140px;
+    pointer-events: none;
+    z-index: 8;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out),
+                width 0.6s var(--ease-out),
+                height 0.6s var(--ease-out);
+  }
+  .hud.active {
+    opacity: 1;
+    width: 180px;
+    height: 180px;
+  }
+  .hud.locked {
+    /* Once the camera arrives, the HUD shrinks slightly and the
+       scan-line stops — visual cue that we've transitioned from
+       "acquiring target" to "locked on". */
+    width: 140px;
+    height: 140px;
+  }
+
+  /* Corner brackets — the iconic frame */
+  .hud-corner {
+    position: absolute;
+    width: 22px; height: 22px;
+    border: 1px solid var(--magma-core);
+    box-shadow: 0 0 8px rgba(255, 87, 34, 0.4);
+  }
+  .hud-corner.top-left     { top: 0;    left: 0;    border-right: 0; border-bottom: 0; }
+  .hud-corner.top-right    { top: 0;    right: 0;   border-left:  0; border-bottom: 0; }
+  .hud-corner.bottom-left  { bottom: 0; left: 0;    border-right: 0; border-top:    0; }
+  .hud-corner.bottom-right { bottom: 0; right: 0;   border-left:  0; border-top:    0; }
+
+  /* Scan line — sweeps top to bottom only while acquiring */
+  .hud-scan-line {
+    position: absolute;
+    left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 87, 34, 0.6),
+      transparent
+    );
+    top: 0;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out);
+    animation: hud-scan 1.4s ease-in-out infinite;
+  }
+  .hud.active .hud-scan-line { opacity: 1; }
+  /* When fully locked, hide the scan line — target acquired */
+  .hud.locked .hud-scan-line { opacity: 0; animation: none; }
+  @keyframes hud-scan {
+    0%, 100% { top: 0%; }
+    50%      { top: 100%; }
+  }
+
+  /* Center dot — small bright pip at the bullseye */
+  .hud-center-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    margin: -2px 0 0 -2px;
+    background: var(--magma-core);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--magma-core),
+                0 0 12px rgba(255, 87, 34, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out) 0.4s;
+  }
+  .hud.locked .hud-center-dot { opacity: 1; }
+
+  /* Readout label below the HUD — shows the locked target's name
+     in mono caps, like an instrument display. */
+  .hud-readout {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--magma-glow);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out) 0.5s;
+    text-shadow: 0 0 12px rgba(255, 87, 34, 0.4);
+  }
+  .hud.locked .hud-readout { opacity: 1; }
+  .hud-readout::before { content: '◆ '; opacity: 0.55; margin-right: 4px; }
+

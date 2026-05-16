@@ -1,0 +1,111 @@
+  .legend-info-card {
+    position: fixed;
+    bottom: 24px; right: 32px;
+    z-index: 11;
+    width: min(340px, calc(100vw - 56px));
+    max-height: min(72vh, 620px);
+    overflow-y: auto;
+    padding: 22px 22px 20px;
+    background: rgba(8, 9, 14, 0.82);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.22s var(--ease-out),
+                transform 0.28s var(--ease-out);
+  }
+  .legend-info-card.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .legend-info-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .legend-info-card-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--magma-glow);
+  }
+  .legend-info-card-close {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: color 0.15s var(--ease-out), background 0.15s var(--ease-out);
+  }
+  .legend-info-card-close:hover {
+    color: var(--magma-glow);
+    background: rgba(255, 87, 34, 0.08);
+  }
+  .legend-info-section {
+    margin-bottom: 18px;
+  }
+  .legend-info-section:last-child { margin-bottom: 0; }
+  .legend-info-section-title {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+  }
+  .legend-info-row {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    align-items: start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+  .legend-info-row .swatch {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .legend-info-row .swatch-active   { background: #ff5722; box-shadow: 0 0 8px rgba(255,87,34,0.6); }
+  .legend-info-row .swatch-dormant  { background: #00e5ff; box-shadow: 0 0 6px rgba(0,229,255,0.45); }
+  .legend-info-row .swatch-extinct  { background: #9e9e9e; }
+  .legend-info-vei-row {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .legend-info-vei-row:last-child { border-bottom: none; }
+  .legend-info-vei-tier {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    text-align: right;
+    padding-top: 1px;
+  }
+  .legend-info-vei-row[data-tier="cataclysmic"] .legend-info-vei-tier { color: #ff5722; }
+  .legend-info-vei-row[data-tier="significant"] .legend-info-vei-tier { color: #ffc107; }
+  .legend-info-blurb {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+  }

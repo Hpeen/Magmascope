@@ -1,0 +1,62 @@
+  /* ----- SAFETY SECTION (info panel) -----
+     A compact band between the data grid and the description block
+     that surfaces hazard tags + the responsible monitoring agency.
+     Yellow-amber accent so it reads as advisory, not editorial. */
+  .safety-block {
+    border-left: 2px solid #ffc107;
+    padding: 4px 0 6px 18px;
+    margin-bottom: 28px;
+  }
+  .safety-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #ffc107;
+    margin-bottom: 12px;
+  }
+  .safety-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 14px;
+    margin-bottom: 10px;
+  }
+  .safety-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    flex-basis: 100%;
+    margin-bottom: -2px;
+  }
+  .safety-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 193, 7, 0.35);
+    background: rgba(255, 193, 7, 0.06);
+    color: #ffd66b;
+  }
+  .safety-agency {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-primary);
+  }
+  .safety-agency a {
+    color: var(--magma-glow);
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255, 140, 66, 0.4);
+  }
+  .safety-agency a:hover { border-bottom-color: var(--magma-glow); }
+  .safety-advice {
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+  }
+

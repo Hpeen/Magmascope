@@ -1,0 +1,188 @@
+  .search-container {
+    position: relative;
+    width: 320px;
+    max-width: 90%;
+    margin: 14px auto 0;
+  }
+  #volcanoSearch {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 9px 32px 9px 34px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    outline: none;
+    transition: border-color 0.25s var(--ease-out),
+                background 0.25s var(--ease-out),
+                box-shadow 0.25s var(--ease-out);
+  }
+  #volcanoSearch::placeholder {
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+  #volcanoSearch:focus {
+    border-color: var(--magma-core);
+    background: rgba(255, 87, 34, 0.05);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.08),
+                0 0 18px rgba(255, 87, 34, 0.12);
+  }
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    font-size: 14px;
+    pointer-events: none;
+    transition: color 0.25s var(--ease-out);
+  }
+  #volcanoSearch:focus ~ .search-icon,
+  .search-container:focus-within .search-icon { color: var(--magma-core); }
+
+  /* Clear button — only appears when there's a query */
+  .search-clear {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    color: var(--text-tertiary);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .search-container.has-value .search-clear {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .search-clear:hover { color: var(--magma-glow); }
+
+  /* Visual feedback when search returns nothing */
+  .search-container.no-results #volcanoSearch {
+    border-color: rgba(255, 60, 0, 0.35);
+    background: rgba(255, 60, 0, 0.05);
+  }
+
+  /* ----- AUTOCOMPLETE DROPDOWN -----
+     A floating list below the search input, styled like an instrument
+     readout. Visible only when there's input text and matches exist. */
+  .search-suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    list-style: none;
+    margin: 0;
+    padding: 4px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: rgba(10, 11, 16, 0.94);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--border-warm);
+    border-radius: 4px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 87, 34, 0.04);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.18s var(--ease-out),
+                transform 0.18s var(--ease-out);
+    z-index: 30;
+  }
+  .search-container.has-suggestions .search-suggestions {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Custom scrollbar to match the panel */
+  .search-suggestions::-webkit-scrollbar { width: 4px; }
+  .search-suggestions::-webkit-scrollbar-track { background: transparent; }
+  .search-suggestions::-webkit-scrollbar-thumb {
+    background: var(--border-warm);
+    border-radius: 2px;
+  }
+
+  .search-suggestion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.12s var(--ease-out);
+    text-align: left;
+  }
+  .search-suggestion:hover,
+  .search-suggestion.active {
+    background: rgba(255, 87, 34, 0.10);
+  }
+  /* Tiny cone glyph at the start of each row — visual echo of the
+     real markers on the globe. */
+  .suggestion-icon {
+    flex-shrink: 0;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 9px solid var(--magma-core);
+    margin-right: 2px;
+    filter: drop-shadow(0 0 4px rgba(255, 87, 34, 0.6));
+  }
+  .suggestion-icon.dim {
+    border-bottom-color: var(--magma-glow);
+    filter: none;
+  }
+  .suggestion-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .suggestion-name {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .suggestion-meta {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-top: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Highlight the matched substring within the suggestion */
+  .suggestion-match {
+    color: var(--magma-bright);
+    font-weight: 600;
+  }
+  .suggestion-empty {
+    padding: 14px 12px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }

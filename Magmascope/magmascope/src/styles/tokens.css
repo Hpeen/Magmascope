@@ -1,0 +1,24 @@
+:root {
+  --bg-deep:       #030305;
+  --bg-panel:      rgba(10, 11, 16, 0.78);
+  --bg-panel-solid:#0a0b10;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-warm:   rgba(255, 110, 50, 0.25);
+
+  --text-primary:  #f4f4f6;
+  --text-secondary:#8b8b95;
+  --text-tertiary: #54545c;
+
+  --magma-core:    #ff5722;
+  --magma-glow:    #ff8c42;
+  --magma-bright:  #ffb627;
+  --magma-deep:    #c62a00;
+
+  --status-live:   #4ade80;
+
+  --font-sans:     'Inter', system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+}

@@ -1,0 +1,65 @@
+.active-volcano-list {
+  margin: 20px 0 32px;
+  padding: 18px 24px;
+  border-radius: 18px;
+  background: rgba(255, 87, 34, 0.08);
+  border: 1px solid rgba(255, 87, 34, 0.12);
+}
+
+.active-volcano-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.active-volcano-list-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.active-volcano-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.active-volcano-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.active-volcano-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 87, 34, 0.3);
+  box-shadow: 0 16px 35px rgba(255, 87, 34, 0.08);
+}
+
+.active-volcano-name {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.active-volcano-country {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.active-volcano-more {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+}
