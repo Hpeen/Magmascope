@@ -65,31 +65,62 @@
 }
 .lp-x:hover { color: var(--text-primary); border-color: var(--magma-core); transform: rotate(90deg); }
 
-/* ── Arrow bubble buttons ──────────────────────────── */
+/* ── Arrow bubble buttons (vertically centered on panel sides) ── */
 .lp-arrow {
   position: absolute;
-  top: 44px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 10;
-  width: 38px; height: 38px;
+  width: 46px; height: 46px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(8, 9, 15, 0.92);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255, 120, 60, 0.32);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255,87,34,0.18), transparent 65%),
+    rgba(10, 11, 18, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03) inset,
+    0 8px 28px rgba(0,0,0,0.55),
+    0 0 18px rgba(255,87,34,0.18);
   color: var(--text-secondary);
-  font-size: 22px;
+  font-size: 26px;
   line-height: 1;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: color .2s, border-color .2s, transform .2s, box-shadow .2s;
+  transition:
+    color .25s ease,
+    border-color .25s ease,
+    transform .25s cubic-bezier(.16,1,.3,1),
+    box-shadow .25s ease,
+    background .25s ease;
+}
+.lp-arrow::before {
+  /* Soft halo that brightens on hover */
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,87,34,0.18), transparent 65%);
+  opacity: 0;
+  transition: opacity .25s ease;
+  z-index: -1;
 }
 .lp-arrow:hover {
   color: var(--magma-glow);
-  border-color: var(--border-warm);
-  transform: scale(1.1);
-  box-shadow: 0 4px 24px rgba(255,87,34,0.2);
+  border-color: rgba(255, 130, 80, 0.85);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 10px 32px rgba(0,0,0,0.6),
+    0 0 28px rgba(255,87,34,0.45);
 }
-.lp-arrow-l { left: 10px; }
-.lp-arrow-r { right: 10px; }
+.lp-arrow:hover::before { opacity: 1; }
+.lp-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+.lp-arrow-l { left: 14px; }
+.lp-arrow-r { right: 14px; }
 
 /* ── Tab strip ─────────────────────────────────────── */
 .lp-tabs {
@@ -124,27 +155,27 @@
   opacity: .42;
 }
 .lp-tab-side:hover {
-  opacity: .9;
+  opacity: .95;
   background: linear-gradient(180deg, rgba(255,87,34,.06), transparent 80%);
   transform: translateY(-1px);
 }
 .lp-tab-side:hover .lp-tab-label {
   color: var(--magma-glow);
-  letter-spacing: .22em;
 }
 .lp-tab-side:active { transform: translateY(0); }
 
 .lp-tab-active {
   cursor: default;
   opacity: 1;
-  /* keyed: re-runs on each tab change */
-  animation: lp-tab-pop .35s cubic-bezier(.16,1,.3,1);
+  animation: lp-tab-pop .3s cubic-bezier(.16,1,.3,1);
 }
 @keyframes lp-tab-pop {
-  0%   { transform: translateY(2px); opacity: 0; filter: blur(1px); }
-  100% { transform: translateY(0);   opacity: 1; filter: blur(0); }
+  0%   { transform: translateY(2px); opacity: 0; }
+  100% { transform: translateY(0);   opacity: 1; }
 }
 
+/* All three tabs share the same type scale — active is distinguished
+   only by color + the sliding underline, not by size. */
 .lp-tab-label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -152,12 +183,10 @@
   text-transform: uppercase;
   color: var(--text-secondary);
   display: block;
-  transition: color .25s ease, letter-spacing .25s ease;
+  transition: color .25s ease;
 }
 .lp-tab-active .lp-tab-label {
-  font-size: 13px;
   color: var(--magma-glow);
-  letter-spacing: .2em;
   text-shadow: 0 0 14px rgba(255,87,34,.35);
 }
 
@@ -215,7 +244,9 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 28px 40px 40px;
+  /* Extra left/right padding so vertically-centered arrows don't
+     overlap the content. */
+  padding: 28px 76px 40px;
 }
 .lp-body::-webkit-scrollbar { width: 3px; }
 .lp-body::-webkit-scrollbar-track { background: transparent; }
