@@ -241,11 +241,22 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
         }
         const topRegion = Object.entries(regions).sort((a, b) => b[1] - a[1])[0][0];
         const topCountry = Object.entries(countries).sort((a, b) => b[1] - a[1])[0][0];
-        const label = topRegion || topCountry;
-        labelCounts[label] = (labelCounts[label] || 0) + 1;
-        c.regionLabel = labelCounts[label] > 1 ? `${label} (${topCountry})` : label;
+        const primary = topRegion || topCountry;
+        labelCounts[primary] = (labelCounts[primary] || 0) + 1;
+        // Store raw values so the displayed label can be re-translated on the
+        // fly when the language changes.
+        c.topRegion = topRegion;
+        c.topCountry = topCountry;
+        c.disambiguateWithCountry = labelCounts[primary] > 1;
       }
       return clusters.filter(c => c.members.length > 1);
+    }
+
+    function clusterLabel(c, lang) {
+      const region = c.topRegion ? tFallback('region', c.topRegion, lang) : null;
+      const country = tFallback('country', c.topCountry, lang);
+      const primary = region || country;
+      return c.disambiguateWithCountry ? `${primary} (${country})` : primary;
     }
 
     const CLUSTERS = buildClusters(volcanoes, 400);
@@ -309,8 +320,11 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
       el.classList.add(maxVei >= 5 ? 'cluster-major' : 'cluster-minor');
       el.innerHTML = `
         <div class="cluster-count">${cluster.members.length}</div>
-        <div class="cluster-label">${cluster.regionLabel}</div>
+        <div class="cluster-label">${clusterLabel(cluster, langRef.current)}</div>
       `;
+      // Pair this DOM element with its cluster so the label can be refreshed
+      // when the language changes without rebuilding the marker.
+      el._cluster = cluster;
       el.addEventListener('click', (e) => {
         e.stopPropagation();
         openClusterPopup(cluster, el);
@@ -404,7 +418,7 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
       const lang = langRef.current;
       popup.innerHTML = `
         <div class="cluster-popup-header">
-          <span class="cluster-popup-title">${cluster.regionLabel}</span>
+          <span class="cluster-popup-title">${clusterLabel(cluster, lang)}</span>
           <span class="cluster-popup-count">${cluster.members.length} ${t('cluster.sites', lang)}</span>
           <button class="cluster-popup-close" aria-label="${t('legend.close', lang)}">×</button>
         </div>
@@ -435,6 +449,7 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
           handleVolcanoClick(v);
         });
       });
+      popup._cluster = cluster;
       activeClusterPopupRef.current = popup;
     }
 
@@ -552,7 +567,7 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
       });
     });
 
-    helpersRef.current = { paintMarker, closeClusterPopup, STATUS_MATERIALS, LOCKED_MATERIALS, controls, updateClusterVisibility };
+    helpersRef.current = { paintMarker, closeClusterPopup, STATUS_MATERIALS, LOCKED_MATERIALS, controls, updateClusterVisibility, clusterLabel };
 
     return () => {
       window.removeEventListener('resize', resize);
@@ -568,6 +583,24 @@ export function useGlobe(mountRef, volcanoes, _ctx, _lang) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Re-label cluster markers (and re-render an open cluster popup) when the
+  // language changes, without rebuilding any 3D state.
+  useEffect(() => {
+    const helpers = helpersRef.current;
+    if (!helpers || !helpers.clusterLabel) return;
+    document.querySelectorAll('.cluster-marker').forEach(el => {
+      const cluster = el._cluster;
+      if (!cluster) return;
+      const labelEl = el.querySelector('.cluster-label');
+      if (labelEl) labelEl.textContent = helpers.clusterLabel(cluster, lang);
+    });
+    const popup = activeClusterPopupRef.current;
+    if (popup && popup._cluster) {
+      const titleEl = popup.querySelector('.cluster-popup-title');
+      if (titleEl) titleEl.textContent = helpers.clusterLabel(popup._cluster, lang);
+    }
+  }, [lang]);
 
   useEffect(() => {
     if (!globeRef.current) return;
