@@ -1,7 +1,7 @@
 export const MONITORING_AGENCIES = {
   'United States':                     { name: 'USGS Volcano Hazards Program',                          url: 'https://volcanoes.usgs.gov/' },
   'Indonesia':                         { name: 'PVMBG (Pusat Vulkanologi dan Mitigasi Bencana Geologi)', url: 'https://magma.esdm.go.id/' },
-  'Japan':                             { name: 'JMA (Japan Meteorological Agency)',                     url: 'https://www.data.jma.go.jp/svd/vois/data/tokyo/STOCK/monthly_v-act_doc/monthly_vact.htm' },
+  'Japan':                             { name: 'JMA (Japan Meteorological Agency)',                     url: 'https://www.data.jma.go.jp/vois/data/tokyo/volcano.html' },
   'Italy':                             { name: 'INGV (Istituto Nazionale di Geofisica e Vulcanologia)', url: 'https://www.ingv.it/' },
   'Iceland':                           { name: 'Icelandic Meteorological Office',                       url: 'https://en.vedur.is/' },
   'Russia':                            { name: 'KVERT (Kamchatka Volcanic Eruption Response Team)',     url: 'http://www.kscnet.ru/ivs/kvert/' },
